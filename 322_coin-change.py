@@ -15,6 +15,7 @@ class Solution:
         return dp[amount] if dp[amount] != amount + 1 else -1 
 
         # recursive top down DP with memoization
+        # O(amount * len(coins))
         # def dfs(n):
         #     if dp[n]: # it's already calculated, simply return it
         #         return dp[n]
@@ -25,6 +26,20 @@ class Solution:
         #         if n - coin >= 0:
         #             dp[n] = min(dp[n], 1 + dfs(n - coin))
         #     return dp[n]
+        
+        # dp = collections.defaultdict(int)
+        # res = dfs(amount)
+        # return res if res != float("inf") else -1
+
+        # without memoization, time complexity is O(len(coins)^amount)
+        # def dfs(n):
+        #     if n == 0:
+        #         return 0
+        #     res = float("inf")
+        #     for coin in coins:
+        #         if n - coin >= 0:
+        #             res = min(res, 1 + dfs(n - coin))
+        #     return res
         
         # dp = collections.defaultdict(int)
         # res = dfs(amount)
