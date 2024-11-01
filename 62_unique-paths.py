@@ -1,28 +1,34 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        # O(2^n) DFS solution, TLE
-	if m == 1 or n == 1:
-            return 1
-        
-        return self.uniquePaths(m - 1, n) + self.uniquePaths(m, n - 1)
-        
-
-class Solution:
-    def uniquePaths(self, m: int, n: int) -> int:
         # O(m x n) time and space, DFS with cache
-	# top down DP
-	dp = {} # (m, n) -> unique paths
+        # top down DP
+        dp = {} # (m, n) -> unique paths
         def dfs(m, n):
             if (m, n) in dp:
                 return dp[(m, n)]
             if m == 1 or n == 1:
                 return 1
+
             
             dp[(m, n)] = dfs(m - 1, n) + dfs(m, n - 1)
 
             return dp[(m, n)]
             
         return dfs(m, n)
+
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        # bottom up DP
+        # O(m x n) time, O(n) space
+        dp = [1] * n
+        for _ in range(2, m + 1):
+            newDp = [1] * n
+            for i in range(1, n):
+                newDp[i] = newDp[i - 1] + dp[i]
+            dp = newDp
+        
+        return dp[-1]
+    
 
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
@@ -39,3 +45,10 @@ class Solution:
         
         return dp[m - 1][n - 1]
 
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        # O(2^n) DFS solution, TLE
+        if m == 1 or n == 1:
+                return 1
+        
+        return self.uniquePaths(m - 1, n) + self.uniquePaths(m, n - 1)
