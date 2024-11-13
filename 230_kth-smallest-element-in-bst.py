@@ -8,15 +8,14 @@
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         # inorder traversal, but return when the kth element is found
-        # instead of traversing the whole tree
-        # O(k) so slightly better than O(n) time
+        # O(n) but better than traversing whole tree
         # O(log n) space if tree balanced, otherwise O(n) space 
 
         s = [] # stack
         cur = root
 
         while s or cur:
-            # build stack using nodes on the left
+            # build stack by traversing to the left on branch
             while cur:
                 s.append(cur)
                 cur = cur.left
@@ -39,3 +38,37 @@ class Solution:
         
         inorder_arr = inorder(root)
         return inorder_arr[k - 1]
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        '''
+        DFS
+        Time: O(n)
+        Space: O(n)
+
+        Traversing to the left will always give you the smallest value.
+        Each time end of left subtree is reached, repeat search on right subtree
+        '''
+        self.res = -1
+        self.count = k
+        def dfs(node):
+            if not node:
+                return
+            
+            dfs(node.left)
+            self.count -= 1
+            if self.count == 0:
+                self.res = node.val
+                return
+            dfs(node.right)
+        
+        dfs(root)
+        return self.res
+
