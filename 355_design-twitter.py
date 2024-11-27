@@ -69,7 +69,7 @@ class Twitter:
             [count, uId, tweetId] = heapq.heappop(heapCopy)
             if uId in followees:
                 res.append(tweetId)
-        return res
+        retrn res
         
 
     def follow(self, followerId: int, followeeId: int) -> None:
