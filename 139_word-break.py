@@ -13,3 +13,23 @@ class Solution:
                     break
         
         return res[0]
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = {}
+        def dfs(i):
+            if i in dp:
+                return dp[i]
+            if i == len(s):
+                return True
+            
+            dp[i] = False
+            for word in wordDict:
+                if i + len(word) > len(s):
+                    continue
+                if s[i:i + len(word)] == word and dfs(i + len(word)):
+                    dp[i] = True
+
+            return dp[i]
+        
+        return dfs(0)
