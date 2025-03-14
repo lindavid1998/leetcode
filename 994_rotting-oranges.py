@@ -37,5 +37,5 @@ class Solution:
                         q.append((x2,y2))
                         num_fresh -= 1
             minutes += 1
-        
+
         return minutes if num_fresh == 0 else -1
